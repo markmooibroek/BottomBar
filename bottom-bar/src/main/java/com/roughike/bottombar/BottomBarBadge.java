@@ -36,9 +36,11 @@ class BottomBarBadge extends TextView {
 
     private int count;
     private boolean isVisible = false;
+    private boolean isSmall = false;
 
-    BottomBarBadge(Context context) {
+    BottomBarBadge(Context context, boolean isSmall) {
         super(context);
+        this.isSmall = isSmall;
     }
 
     /**
@@ -48,7 +50,13 @@ class BottomBarBadge extends TextView {
      */
     void setCount(int count) {
         this.count = count;
-        setText(String.valueOf(count));
+
+        if (!isSmall) {
+            setText(String.valueOf(count));
+        }
+
+        setScaleX(isSmall ? 0.3f : 1);
+        setScaleY(isSmall ? 0.3f : 1);
     }
 
     /**
@@ -68,8 +76,8 @@ class BottomBarBadge extends TextView {
         ViewCompat.animate(this)
                 .setDuration(150)
                 .alpha(1)
-                .scaleX(1)
-                .scaleY(1)
+                .scaleX(isSmall ? 0.3f : 1)
+                .scaleY(isSmall ? 0.3f : 1)
                 .start();
     }
 
