@@ -17,6 +17,8 @@
         <attr name="bb_titleTypeFace" format="string" />
         <attr name="bb_showShadow" format="boolean" />
         <attr name="bb_smallBadges" format="boolean" />
+        <attr name="bb_badgePaddingRight" format="dimension" />
+        <attr name="bb_badgePaddingTop" format="dimension" />
 
     </declare-styleable>
 </resources>

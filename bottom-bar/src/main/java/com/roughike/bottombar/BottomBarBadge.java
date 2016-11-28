@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /*
@@ -37,6 +38,7 @@ class BottomBarBadge extends TextView {
     private int count;
     private boolean isVisible = false;
     private boolean isSmall = false;
+    private float paddingTop, paddingRight;
 
     BottomBarBadge(Context context, boolean isSmall) {
         super(context);
@@ -107,6 +109,9 @@ class BottomBarBadge extends TextView {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        paddingTop = tab.getBadgePaddingTop();
+        paddingRight = tab.getBadgePaddingRight();
+
         setLayoutParams(params);
         setGravity(Gravity.CENTER);
         MiscUtils.setTextAppearance(this, R.style.BB_BottomBarBadge_Text);
@@ -141,6 +146,13 @@ class BottomBarBadge extends TextView {
             public void onGlobalLayout() {
                 badgeContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 adjustPositionAndSize(tab);
+
+                //REPOSITION and center image in tab
+                int tabHeight = ((ViewGroup) tab.getParent()).getHeight();
+                int imageHeight = tab.getChildAt(0).getMeasuredHeight();
+                int paddingTop = (tabHeight - imageHeight) / 2;
+                tab.getChildAt(0).setY(paddingTop);
+
             }
         });
     }
@@ -165,8 +177,8 @@ class BottomBarBadge extends TextView {
             xOffset /= 1.25;
         }
 
-        setX(iconView.getX() + xOffset);
-        setTranslationY(10);
+        setX(iconView.getX() + xOffset - paddingRight);
+        setTranslationY(10 + paddingTop);
 
         if (params.width != size || params.height != size) {
             params.width = size;

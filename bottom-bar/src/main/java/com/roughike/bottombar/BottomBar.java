@@ -103,6 +103,9 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
     private boolean shiftingTabs = true;
     private boolean smallbadges = false;
 
+    private float badgePaddingTop = 0;
+    private float badgePaddingRight = 0;
+
     public BottomBar(Context context) {
         super(context);
         init(context, null);
@@ -149,6 +152,9 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
             titleTypeFace = getTypeFaceFromAsset(ta.getString(R.styleable.BottomBar_bb_titleTypeFace));
             showShadow = ta.getBoolean(R.styleable.BottomBar_bb_showShadow, true);
             smallbadges = ta.getBoolean(R.styleable.BottomBar_bb_smallBadges, false);
+
+            badgePaddingTop = ta.getDimension(R.styleable.BottomBar_bb_badgePaddingTop, 0);
+            badgePaddingRight = ta.getDimension(R.styleable.BottomBar_bb_badgePaddingRight, 0);
         } finally {
             ta.recycle();
         }
@@ -254,6 +260,8 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
                 .badgeBackgroundColor(badgeBackgroundColor)
                 .titleTextAppearance(titleTextAppearance)
                 .titleTypeFace(titleTypeFace)
+                .badgePaddingRight(badgePaddingRight)
+                .badgePaddingTop(badgePaddingTop)
                 .smallbadges(smallbadges)
                 .build();
     }

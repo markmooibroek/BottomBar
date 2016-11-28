@@ -15,6 +15,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,8 @@ public class BottomBarTab extends LinearLayout {
     private TextView titleView;
     private boolean isActive;
     private boolean smallbadges;
+    private float badgePaddingRight;
+    private float badgePaddingTop;
 
     private int indexInContainer;
 
@@ -91,6 +94,8 @@ public class BottomBarTab extends LinearLayout {
         setTitleTextAppearance(config.titleTextAppearance);
         setTitleTypeface(config.titleTypeFace);
         setSmallbadges(config.smallbadges);
+        setBadgePaddingRight(config.badgePaddingRight);
+        setBadgePaddingTop(config.badgePaddingTop);
     }
 
     void prepareLayout() {
@@ -534,6 +539,8 @@ public class BottomBarTab extends LinearLayout {
             return;
         }
 
+        Log.i("BarTab", "setTopPadding: " + String.valueOf(topPadding));
+
         iconView.setPadding(
                 iconView.getPaddingLeft(),
                 topPadding,
@@ -549,6 +556,22 @@ public class BottomBarTab extends LinearLayout {
 
         ViewCompat.setScaleX(titleView, scale);
         ViewCompat.setScaleY(titleView, scale);
+    }
+
+    public void setBadgePaddingRight(float badgePaddingRight) {
+        this.badgePaddingRight = badgePaddingRight;
+    }
+
+    public void setBadgePaddingTop(float badgePaddingTop) {
+        this.badgePaddingTop = badgePaddingTop;
+    }
+
+    public float getBadgePaddingTop() {
+        return badgePaddingTop;
+    }
+
+    public float getBadgePaddingRight() {
+        return badgePaddingRight;
     }
 
     @Override
@@ -583,6 +606,8 @@ public class BottomBarTab extends LinearLayout {
         private final int titleTextAppearance;
         private final boolean smallbadges;
         private final Typeface titleTypeFace;
+        private final float badgePaddingTop;
+        private final float badgePaddingRight;
 
         private Config(Builder builder) {
             this.inActiveTabAlpha = builder.inActiveTabAlpha;
@@ -594,6 +619,8 @@ public class BottomBarTab extends LinearLayout {
             this.titleTextAppearance = builder.titleTextAppearance;
             this.titleTypeFace = builder.titleTypeFace;
             this.smallbadges = builder.smallbadges;
+            this.badgePaddingTop = builder.badgePaddingTop;
+            this.badgePaddingRight = builder.badgePaddingRight;
         }
 
         public static class Builder {
@@ -606,6 +633,8 @@ public class BottomBarTab extends LinearLayout {
             private int titleTextAppearance;
             private boolean smallbadges;
             private Typeface titleTypeFace;
+            private float badgePaddingTop;
+            private float badgePaddingRight;
 
             public Builder inActiveTabAlpha(float alpha) {
                 this.inActiveTabAlpha = alpha;
@@ -649,6 +678,16 @@ public class BottomBarTab extends LinearLayout {
 
             public Builder smallbadges(boolean smallbadges) {
                 this.smallbadges = smallbadges;
+                return this;
+            }
+
+            public Builder badgePaddingTop(float badgePaddingTop) {
+                this.badgePaddingTop = badgePaddingTop;
+                return this;
+            }
+
+            public Builder badgePaddingRight(float badgePaddingRight) {
+                this.badgePaddingRight = badgePaddingRight;
                 return this;
             }
 
