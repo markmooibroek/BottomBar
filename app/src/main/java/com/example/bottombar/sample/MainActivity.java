@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.five_tabs_custom_colors).setOnClickListener(this);
         findViewById(R.id.badges).setOnClickListener(this);
         findViewById(R.id.small_badges).setOnClickListener(this);
+        findViewById(R.id.center_in_parent).setOnClickListener(this);
     }
 
     @Override
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.small_badges:
                 clazz = SmallBadgeActivity.class;
+                break;
+            case R.id.center_in_parent:
+                clazz = CenteredActivity.class;
         }
 
         startActivity(new Intent(this, clazz));
