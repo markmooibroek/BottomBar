@@ -62,6 +62,7 @@ public class BottomBarTab extends LinearLayout {
     private TextView titleView;
     private boolean isActive;
     private boolean smallbadges;
+    private boolean scaleTitle;
     private float badgePaddingRight;
     private float badgePaddingTop;
 
@@ -71,6 +72,10 @@ public class BottomBarTab extends LinearLayout {
     BottomBarBadge badge;
     private int titleTextAppearanceResId;
     private Typeface titleTypeFace;
+
+    public void setScaleTitle(boolean scaleTitle) {
+        this.scaleTitle = scaleTitle;
+    }
 
     public enum Type {
         FIXED, SHIFTING, TABLET
@@ -92,6 +97,7 @@ public class BottomBarTab extends LinearLayout {
         setBarColorWhenSelected(config.barColorWhenSelected);
         setBadgeBackgroundColor(config.badgeBackgroundColor);
         setTitleTextAppearance(config.titleTextAppearance);
+        setScaleTitle(config.scaleTitle);
         setTitleTypeface(config.titleTypeFace);
         setSmallbadges(config.smallbadges);
         setBadgePaddingRight(config.badgePaddingRight);
@@ -368,10 +374,16 @@ public class BottomBarTab extends LinearLayout {
 
             setTopPaddingAnimated(iconView.getPaddingTop(), sixDps);
             animateIcon(activeAlpha);
-            animateTitle(ACTIVE_TITLE_SCALE, activeAlpha);
+
+            if (scaleTitle)
+                animateTitle(ACTIVE_TITLE_SCALE, activeAlpha);
+
             animateColors(inActiveColor, activeColor);
         } else {
-            setTitleScale(ACTIVE_TITLE_SCALE);
+
+            if (scaleTitle)
+                setTitleScale(ACTIVE_TITLE_SCALE);
+
             setTopPadding(sixDps);
             setColors(activeColor);
             setAlphas(activeAlpha);
@@ -392,11 +404,17 @@ public class BottomBarTab extends LinearLayout {
 
         if (animate) {
             setTopPaddingAnimated(iconView.getPaddingTop(), iconPaddingTop);
-            animateTitle(scale, inActiveAlpha);
+
+            if (scaleTitle)
+                animateTitle(scale, inActiveAlpha);
+
             animateIcon(inActiveAlpha);
             animateColors(activeColor, inActiveColor);
         } else {
-            setTitleScale(scale);
+
+            if (scaleTitle)
+                setTitleScale(scale);
+            
             setTopPadding(iconPaddingTop);
             setColors(inActiveColor);
             setAlphas(inActiveAlpha);
@@ -600,6 +618,7 @@ public class BottomBarTab extends LinearLayout {
         private final int titleTextAppearance;
         private final boolean smallbadges;
         private final Typeface titleTypeFace;
+        private final boolean scaleTitle;
         private final float badgePaddingTop;
         private final float badgePaddingRight;
 
@@ -615,6 +634,7 @@ public class BottomBarTab extends LinearLayout {
             this.smallbadges = builder.smallbadges;
             this.badgePaddingTop = builder.badgePaddingTop;
             this.badgePaddingRight = builder.badgePaddingRight;
+            this.scaleTitle = builder.scaleTitle;
         }
 
         public static class Builder {
@@ -626,6 +646,7 @@ public class BottomBarTab extends LinearLayout {
             private int badgeBackgroundColor;
             private int titleTextAppearance;
             private boolean smallbadges;
+            private boolean scaleTitle;
             private Typeface titleTypeFace;
             private float badgePaddingTop;
             private float badgePaddingRight;
@@ -682,6 +703,11 @@ public class BottomBarTab extends LinearLayout {
 
             public Builder badgePaddingRight(float badgePaddingRight) {
                 this.badgePaddingRight = badgePaddingRight;
+                return this;
+            }
+
+            public Builder scaleTitle(boolean scaleTitle) {
+                this.scaleTitle = scaleTitle;
                 return this;
             }
 

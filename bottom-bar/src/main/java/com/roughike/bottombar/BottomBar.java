@@ -77,6 +77,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
     private int titleTextAppearance;
     private Typeface titleTypeFace;
     private boolean showShadow;
+    private boolean scaleTitle;
 
     private View backgroundOverlay;
     private ViewGroup outerContainer;
@@ -152,6 +153,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
             titleTypeFace = getTypeFaceFromAsset(ta.getString(R.styleable.BottomBar_bb_titleTypeFace));
             showShadow = ta.getBoolean(R.styleable.BottomBar_bb_showShadow, true);
             smallbadges = ta.getBoolean(R.styleable.BottomBar_bb_smallBadges, false);
+            scaleTitle = ta.getBoolean(R.styleable.BottomBar_bb_scaleTitles, true);
 
             badgePaddingTop = ta.getDimension(R.styleable.BottomBar_bb_badgePaddingTop, 0);
             badgePaddingRight = ta.getDimension(R.styleable.BottomBar_bb_badgePaddingRight, 0);
