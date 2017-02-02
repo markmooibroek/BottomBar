@@ -393,10 +393,6 @@ public class BottomBarTab extends LinearLayout {
             setColors(activeColor);
             setAlphas(activeAlpha);
         }
-
-        if (badge != null) {
-            badge.hide();
-        }
     }
 
     void deselect(boolean animate) {
